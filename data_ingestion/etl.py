@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Created on Fri Sep 23 15:05:03 2022
+
+
+"""
 
 import logging
 import os
@@ -59,7 +64,6 @@ def get_data_to_table(cur, table)-> list:
         DESCRIPTION.
 
     """
-    #table="users"
     user_data = api_client._get_api_information(endpoint=table)
     # add a validation to first check the table before recareting it. The query to check the validation is above
     
@@ -73,19 +77,43 @@ def get_data_to_table(cur, table)-> list:
     return user_data
 
 
+def _create_data_modelling_tables(cur):
+    """
 
+    Parameters
+    ----------
+    cur : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
+    #create table if not exists
+    db_client.create_data_table(cur)
+    
+    #insert into table
+    db_client.insert_data_table(cur)
+    
+    
 
 
 def main():
     config = configparser.ConfigParser()
     config.read('db.cfg')
     conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['db'].values()))
+    conn.set_session(autocommit=True)
     cur = conn.cursor()
     _create_db(cur)
     
     endpoint_names = ['users', 'messages']
     for i in endpoint_names:
         get_data_to_table(cur, i)
+    
+    _create_data_modelling_tables(cur)
+    conn.commit()
+    conn.close()
     
     
 if __name__ == '__main__':
