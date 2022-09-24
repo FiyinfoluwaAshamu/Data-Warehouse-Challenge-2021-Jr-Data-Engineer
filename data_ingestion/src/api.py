@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Sep 23 14:56:54 2022
-
-@author: john.omole
-"""
 
 
 import logging
