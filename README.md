@@ -41,4 +41,6 @@ Required libraries imported
 > - requets
 
 Created a connection to the Postgres database
+
+![docker_container](docker_container.png)
 ## Test
