@@ -9,7 +9,7 @@ class SqlQueries:
 
     insert_data = ("""
          INSERT INTO {} (
-                    data
+                    info
                     ) VALUES(%s);
  """)
  
@@ -95,11 +95,10 @@ class SqlQueries:
     insert_subscription_service = (
         """
         INSERT INTO subscription_service(
-            user_id, createdAt, startDate, endDate, status
+            user_id, createdAt, startDate, endDate, status, amount
             ) VALUES(
-                %s, %s, %s, %s, %s
+                %s, %s, %s, %s, %s, %s
                 )
-        
         """
         )
         

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 import logging
 import os
 import psycopg2
@@ -101,10 +100,14 @@ def main():
     conn.set_session(autocommit=True)
     cur = conn.cursor()
     _create_db(cur)
-    
+    conn.close()
+
+    # connect to project database
+    conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['new_db'].values()))
+    cur = conn.cursor()
     endpoint_names = ['users', 'messages']
     for i in endpoint_names:
-        get_data_to_table(cur, i)
+        get_data_to_table(cur,i)
     
     _create_data_modelling_tables(cur)
     conn.commit()

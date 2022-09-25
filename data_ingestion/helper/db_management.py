@@ -1,3 +1,4 @@
+import json
 import psycopg2
 import configparser
 from helper.sql_queries import SqlQueries
@@ -24,9 +25,9 @@ class DBManagement:
         # connect to default database
     
         # create database with UTF8 encoding
-        cur.execute("DROP DATABASE IF EXISTS {db} WITH (FORCE)")
+        cur.execute(f"DROP DATABASE IF EXISTS {db} WITH (FORCE)")
 
-        cur.execute("CREATE DATABASE db WITH ENCODING 'utf8' TEMPLATE template0")
+        cur.execute(f"CREATE DATABASE {db} WITH ENCODING 'utf8' TEMPLATE template0")
 
     
     
@@ -92,7 +93,7 @@ class DBManagement:
         # Export the data to db
         for row in data:
             # print(row)
-            cur.execute(SqlQueries.insert_data.format(table), row)
+            cur.execute(SqlQueries.insert_data.format(table), [json.dumps(row)])
 
 
     def create_message_service(self, cur, data, table):
@@ -155,11 +156,11 @@ class DBManagement:
                     endDate = sub.get("endDate")
                     status = sub.get("status")
                     amount = sub.get("amount")
-                    selected_list = [id, createdAt, startDate, endDate, status]
+                    selected_list = [id, createdAt, startDate, endDate, status, amount]
                
                   
             
-                    #for user service
+                    #for subscription service
         
                     cur.execute(SqlQueries.insert_subscription_service, selected_list) 
         
