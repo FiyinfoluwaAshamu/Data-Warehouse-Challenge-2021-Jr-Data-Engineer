@@ -41,6 +41,7 @@ Required libraries imported
 > - requets
 
 ## Start local Docker Resources
+
 > docker compose up
 
 ## Test - test.py
