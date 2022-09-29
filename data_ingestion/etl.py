@@ -37,7 +37,7 @@ def _create_db(cur):
     Returns
     -------
     None.
-
+g
     """
     db_client.create_database(cur, db='projects')
 
@@ -59,7 +59,7 @@ def get_data_to_table(cur, table)-> list:
 
     """
     user_data = api_client._get_api_information(endpoint=table)
-    # add a validation to first check the table before recareting it. The query to check the validation is above
+
     
     db_client.create_tables(cur, table)
     
